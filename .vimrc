@@ -21,6 +21,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+"remap leader to comma
+let mapleader = ","
 " auto read when a file is changed from outside
 set autoread
 
@@ -44,24 +46,37 @@ nnoremap k gk
 " line number
 set nu
 
-" Use tab for auto completion
-function! SuperTab()
-    if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
-        return "\<Tab>"
-    else
-        return "\<C-n>"
-    endif
-endfunction
-imap <Tab> <C-R>=SuperTab()<CR>
-
 " ignore compiled files
 set wildignore=*.o,*~,*.pyc
 set ruler
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw
+"set lazyredraw
 
 " Turn backup off, since most stuff is in SVN, git etc
 set nobackup
 set nowb
 set noswapfile
+
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
+" Bundles
+Bundle 'bling/vim-airline'
+Bundle 'fugitive.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'git://github.com/davidhalter/jedi-vim'
+Bundle 'andviro/flake8-vim'
+Bundle 'minibufexpl.vim'
+Bundle 'Command-T'
+Bundle 'snipMate'
+
+" airline
+let g:airline_theme             = 'powerlineish'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+set laststatus=2
+
+"nerdtree
+map <C-t> <ESC>:NERDTreeToggle<CR>
+
